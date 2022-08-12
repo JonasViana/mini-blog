@@ -1,3 +1,52 @@
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #E1EBFF;
+  padding: 2rem;
+}
+
+form label{
+  display: flex;
+  width: 350px;
+  justify-content: space-between;
+}
+
+form input{
+  width: 250px;
+  height: 17px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+form button{
+  width: 100px;
+  height: 25px;
+  background-color: #034778;
+  color: white;
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+
+form button:hover{
+  background-color: #012f51;
+
+}
+
+.cadastro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form{
+  display: flex;
+  background-color: #E1EBFF;
+  border-radius: 10px;
+}
+
 .register{
   text-align: center;
 }
