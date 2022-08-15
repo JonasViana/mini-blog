@@ -54,3 +54,10 @@ form button:hover{
 .register p{
   color: #aaa;
 }
+
+.error{
+  background-color: rgb(237, 95, 95);
+  color: black;
+  padding: .5rem;
+  border-radius: 5px;
+}
