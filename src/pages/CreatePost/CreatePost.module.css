@@ -1,0 +1,32 @@
+form{
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  border-radius: 5px;
+}
+
+form input{
+  width: 600px;
+}
+
+form textarea{
+  width: 600px;
+  height: 100px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+form span{
+  width: inherit;
+  margin-right: .5rem;
+}
+
+form label{
+  margin-bottom: 1rem;
+}
+
+.post{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
