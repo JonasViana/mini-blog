@@ -12,7 +12,7 @@ const About = () => {
         Este projeto consiste em um blog feito em React no front-end e firebase
         no back-end
       </p>
-      <Link to="/post/create" classname="btn">
+      <Link to="/post/create" classname={styles.btn}>
         Criar post
       </Link>
     </div>
