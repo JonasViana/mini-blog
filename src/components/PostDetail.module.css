@@ -1,0 +1,17 @@
+.post_detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.post_detail img{
+  max-width: 800px;
+
+}
+
+.button{
+ padding: .5rem 2rem;
+  border: 1px solid black;
+  margin-bottom: 1.5rem;
+}

@@ -5,38 +5,38 @@ import { useAuthValue } from '../../context/AuthContext'
 import { useInsertDocument } from '../../hooks/useInsertDocuments'
 
 const CreatePost = () => {
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
-  const [body, setBody] = useState("");
-  const [tags, setTags] = useState([]);
-  const [formError, setFormError] = useState("");
+  const [title, setTitle] = useState('')
+  const [image, setImage] = useState('')
+  const [body, setBody] = useState('')
+  const [tags, setTags] = useState([])
+  const [formError, setFormError] = useState('')
 
-  const { user } = useAuthValue();
+  const { user } = useAuthValue()
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const { insertDocument, response } = useInsertDocument("posts");
+  const { insertDocument, response } = useInsertDocument('posts')
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormError("");
+  const handleSubmit = e => {
+    e.preventDefault()
+    setFormError('')
 
     // validate image
     try {
-      new URL(image);
+      new URL(image)
     } catch (error) {
-      setFormError("A imagem precisa ser uma URL.");
+      setFormError('A imagem precisa ser uma URL.')
     }
 
     // create tags array
-    const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase());
+    const tagsArray = tags.split(',').map(tag => tag.trim().toLowerCase())
 
     // check values
     if (!title || !image || !tags || !body) {
-      setFormError("Por favor, preencha todos os campos!");
+      setFormError('Por favor, preencha todos os campos!')
     }
 
-    console.log(tagsArray);
+    console.log(tagsArray)
 
     console.log({
       title,
@@ -44,23 +44,23 @@ const CreatePost = () => {
       body,
       tags: tagsArray,
       uid: user.uid,
-      createdBy: user.displayName,
-    });
+      createdBy: user.displayName
+    })
 
-    if(formError) return
+    if (formError) return
 
     insertDocument({
       title,
       image,
       body,
-      tags: tagsArray,
+      tagsArray,
       uid: user.uid,
-      createdBy: user.displayName,
-    });
+      createdBy: user.displayName
+    })
 
     //redirect home page
 
-    navigate("/");
+    navigate('/')
   }
   return (
     <div className={styles.post}>
@@ -117,6 +117,7 @@ const CreatePost = () => {
           </button>
         )}
         {response.error && <p className={styles.error}>{response.error}</p>}
+        {formError && <p className={styles.error}>{formError}</p>}
       </form>
     </div>
   )
