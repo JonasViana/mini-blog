@@ -2,16 +2,65 @@ import styles from './CreatePost.module.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from '../../context/AuthContext'
+import { useInsertDocument } from '../../hooks/useInsertDocuments'
 
 const CreatePost = () => {
-  const [title, setTitle] = useState('')
-  const [image, setImage] = useState('')
-  const [body, setBody] = useState('')
-  const [tag, setTag] = useState([])
-  const [formError, setFormError] = useState('')
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [body, setBody] = useState("");
+  const [tags, setTags] = useState([]);
+  const [formError, setFormError] = useState("");
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const { user } = useAuthValue();
+
+  const navigate = useNavigate();
+
+  const { insertDocument, response } = useInsertDocument("posts");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormError("");
+
+    // validate image
+    try {
+      new URL(image);
+    } catch (error) {
+      setFormError("A imagem precisa ser uma URL.");
+    }
+
+    // create tags array
+    const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase());
+
+    // check values
+    if (!title || !image || !tags || !body) {
+      setFormError("Por favor, preencha todos os campos!");
+    }
+
+    console.log(tagsArray);
+
+    console.log({
+      title,
+      image,
+      body,
+      tags: tagsArray,
+      uid: user.uid,
+      createdBy: user.displayName,
+    });
+
+    if(formError) return
+
+    insertDocument({
+      title,
+      image,
+      body,
+      tags: tagsArray,
+      uid: user.uid,
+      createdBy: user.displayName,
+    });
+
+    //redirect home page
+
+    navigate("/");
   }
   return (
     <div className={styles.post}>
@@ -57,18 +106,17 @@ const CreatePost = () => {
             name="tag"
             required
             placeholder="Insira tags separados por virgula"
-            onChange={e => setTag(e.target.value)}
-            value={tag}
+            onChange={e => setTags(e.target.value)}
+            value={tags}
           />
         </label>
-        <button className="btn">Postar</button>
-        {/*!loading && <button className="btn">Cadastrar</button>}
-        {loading && (
+        {!response.loading && <button className="btn">Postar</button>}
+        {response.loading && (
           <button className="btn" disabled>
             Aguarde...
           </button>
         )}
-        {error && <p className={styles.error}>{error}</p>*/}
+        {response.error && <p className={styles.error}>{response.error}</p>}
       </form>
     </div>
   )
